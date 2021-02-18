@@ -4,7 +4,7 @@ using Xunit;
 
 namespace PaymentProcessorFiled.Test
 {
-    public class UnitTest1
+    public class PaymentsControllerTest
     {
         [Fact]
         public void ItExists()
