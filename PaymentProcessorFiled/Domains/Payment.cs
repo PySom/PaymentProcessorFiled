@@ -27,6 +27,9 @@ namespace PaymentProcessorFiled.Domains
         [Required]
         [PaymentAmount]
         public decimal Amount { get; set; }
+        [ForeignKey(nameof(PaymentStateId))]
+        public PaymentState PaymentState { get; set; }
+        public string PaymentStateId { get; set; }
 
     }
 }
