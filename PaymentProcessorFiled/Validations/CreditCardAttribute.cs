@@ -1,4 +1,5 @@
 ﻿using CreditCardValidator;
+using PaymentProcessorFiled.Utils;
 using System;
 using System.ComponentModel.DataAnnotations;
 
@@ -11,10 +12,18 @@ namespace PaymentProcessorFiled.Validations
         {
             ValidationResult result = ValidationResult.Success;
             string[] memberNames = new string[] { validationContext.MemberName };
-            if (!Luhn.CheckLuhn((string)value))
+            try
             {
-                result = new ValidationResult("Please enter a valid credit card number", memberNames);
+                if (!ValidationUtil.CardNumberIsValid(value))
+                {
+                    result = new ValidationResult("Please enter a valid credit card number", memberNames);
+                }
             }
+            catch(ArgumentException ex)
+            {
+                result = new ValidationResult(ex.Message, memberNames);
+            }
+            
             return result;
         }
     }

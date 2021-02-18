@@ -1,11 +1,11 @@
 ﻿using PaymentProcessorFiled.Domains.Abstract;
-using PaymentProcessorFiled.enums;
+using PaymentProcessorFiled.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PaymentProcessorFiled.Domains
 {
-    public class PaymentState : Audit
+    public class PaymentState : Audit, IModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

@@ -10,7 +10,7 @@ namespace PaymentProcessorFiled.Test
         public void ItExists()
         {
             //arrange
-            var paymentsController = new PaymentsController();
+            var paymentsController = new PaymentsController(null, null);
             //act
             MethodInfo methodInfo = paymentsController.GetType().GetMethod("ProcessPayment");
             //assert

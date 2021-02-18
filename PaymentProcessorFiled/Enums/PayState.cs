@@ -1,4 +1,4 @@
-﻿namespace PaymentProcessorFiled.enums
+﻿namespace PaymentProcessorFiled.Enums
 {
     public enum PayState : byte
     { Pending, Processed, Failed}

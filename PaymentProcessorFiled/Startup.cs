@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using PaymentProcessorFiled.Data;
+using PaymentProcessorFiled.Domains;
+using PaymentProcessorFiled.Repository;
+using PaymentProcessorFiled.Repository.Concrete;
+using PaymentProcessorFiled.Repository.Generics;
+using PaymentProcessorFiled.Services.Contracts;
+using PaymentProcessorFiled.Services.MockPayments;
 
 namespace PaymentProcessorFiled
 {
@@ -31,6 +38,16 @@ namespace PaymentProcessorFiled
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Filed Test API", Version = "v1" });
             });
+            services.AddAutoMapper(typeof(Startup));
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IPaymentRepository, PaymentRepository>();
+            services.AddTransient<IModelManager<PaymentState>, ModelManager<PaymentState>>();
+            services.AddTransient<IPayExternalRepository, PayExternalRepository>();
+            services.AddTransient<ICheapPaymentGateway, CheapPaymentGateway>();
+            services.AddTransient<IExpensivePaymentGateway, ExpensivePaymentGateway>();
+            services.AddTransient<IPremiumPaymentService, PremiumPaymentService>();
+
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PaymentProcessorFiled.Utils;
+using System;
 using System.ComponentModel.DataAnnotations;
 namespace PaymentProcessorFiled.Validations
 {
@@ -9,8 +10,7 @@ namespace PaymentProcessorFiled.Validations
         {
             ValidationResult result = ValidationResult.Success;
             string[] memberNames = new string[] { validationContext.MemberName };
-            DateTime date = (DateTime)value;
-            if(DateTime.Now >= date)
+            if (ValidationUtil.CardHasExpired(value))
             {
                 return new ValidationResult("Your card is expired. Please use a valid card", memberNames);
             }

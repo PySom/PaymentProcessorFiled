@@ -5,20 +5,15 @@ using System.ComponentModel.DataAnnotations;
 namespace PaymentProcessorFiled.Validations
 {
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public sealed class PaymentAmountAttribute : ValidationAttribute
+    public sealed class SecurityCodeAttribute : ValidationAttribute
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
             ValidationResult result = ValidationResult.Success;
             string[] memberNames = new string[] { validationContext.MemberName };
-            decimal amount = (decimal)value;
-            if (ValidationUtil.AmountIsNegative(amount))
+            if (ValidationUtil.SecurityCodeIsNotValid(value))
             {
-                return new ValidationResult("We do not support credit. Please pay a valid amount.", memberNames);
-            }
-            else if(ValidationUtil.AmountIsZero(amount))
-            {
-                return new ValidationResult("You need to make a payment with a higer value", memberNames);
+                return new ValidationResult("Only digits are allowed", memberNames);
             }
             return result;
         }
